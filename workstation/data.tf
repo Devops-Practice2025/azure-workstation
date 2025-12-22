@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "example" {
-  name = "nebula-sandbox-karthikeyangopal-6fc2f68e"
+  name = "pool-01-395"
 }
 
 data "azurerm_subnet" "example" {
