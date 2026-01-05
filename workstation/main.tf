@@ -1,7 +1,7 @@
 resource "azurerm_network_interface" "example" {
   name                = "test-nic"
-  location            = var.location
-  resource_group_name = var.resoruce_group_name
+  location            = var.main.location
+  resource_group_name = var.main.resoruce_group_name
 
   ip_configuration {
     name                          = "internal"
@@ -13,8 +13,8 @@ resource "azurerm_network_interface" "example" {
 
 resource "azurerm_virtual_machine" "main" {
   name                  = "test-vm"
-  location              = var.location
-  resource_group_name   = var.name
+  location              = var.main.location
+  resource_group_name   = var.main.name
   network_interface_ids = [azurerm_network_interface.example.id]
   vm_size               = "Standard_DS1_v2"
 
