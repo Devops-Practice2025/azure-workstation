@@ -1,5 +1,6 @@
 data "azurerm_resource_group" "example" {
   name = "nebula-sandbox-karthikeyangopal-2a6a0756"
+  location = "eastus"
 }
 
 data "azurerm_subnet" "example" {
