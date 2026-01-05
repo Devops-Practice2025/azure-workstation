@@ -4,6 +4,6 @@ data "azurerm_resource_group" "example" {
 
 data "azurerm_subnet" "example" {
   name                 = "default"
-  virtual_network_name = "Sand-setup-network"
+  virtual_network_name = "test-vnet"
   resource_group_name  = data.azurerm_resource_group.example.name
 }
