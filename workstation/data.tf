@@ -1,7 +1,7 @@
 data "azurerm_subnet" "example" {
-  name                 = "backend"
-  virtual_network_name = "production"
-  resource_group_name  = "networking"
+  name                 = "default"
+  virtual_network_name = "test-vnet"
+  resource_group_name  = "nebula-sandbox-karthikeyangopal-2a6a0756"
 }
 
 output "subnet_id" {
