@@ -13,3 +13,5 @@ az vm create \
     --accept-term
 
 ````
+ az vm show -g $RESOURCEGROUP -n workstation -d --query "{name:name,public_Ip:publicIps,state:powerState,private_Ip:privateIps,size:vmSize}" -o table
+ ````
