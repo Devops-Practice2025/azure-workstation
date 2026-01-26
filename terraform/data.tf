@@ -1,6 +1,6 @@
 # Data block to read an existing resource group
 data "azurerm_resource_group" "nebula" {
-     name_prefix = "nebula"
+     name = "nebula-sandbox-karthikeyangopal-629394fa"
 }
 locals {
   nebula_rg = data.azurerm_resource_group.nebula.name[0]
