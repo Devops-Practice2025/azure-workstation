@@ -3,12 +3,12 @@ data "azurerm_resource_group" "nebula" {
      name = "nebula-sandbox-karthikeyangopal-629394fa"
 }
 locals {
-  nebula_rg = data.azurerm_resource_group.nebula.name[0]
- nebula_location = data.azurerm_resource_group.nebula.location[0]
+  nebula_rg = data.azurerm_resource_group.nebula.name
+ nebula_location = data.azurerm_resource_group.nebula.location
 }
 
 output "rg" {
-  value = local.nebula_rg.name
+  value = local.nebula_rg
   
 }
 output "location" {
