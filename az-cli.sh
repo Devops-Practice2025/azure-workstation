@@ -2,6 +2,9 @@ set -x
 
 sub_id=$(az account list -o table | grep C_029773-training-subscription | awk '{print $3}')
 rg=$(az group list -o table | grep nebula | awk '{print $1}')
+export sub_id
+export rg
+
 read -p "Enter your pass for VM workstation: " ps
 
 az account set --subscription $sub_id
@@ -16,5 +19,19 @@ az vm create \
   --assign-identity \
   --authentication-type password \
   --public-ip-sku Standard
+
+sys_id=$(az vm show -g $rg -n workstation --query "identity.principalId" -otsv)
+
+echo $sys_id
+
+az role assignment create \
+  --assignee "$sys_id" \
+  --role "Owner" \
+  --scope "/subscriptions/$sub_id/resourceGroups/$rg"
+
+
+
+
+
 
 set +x
