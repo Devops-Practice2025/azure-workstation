@@ -11,7 +11,7 @@ az vm create \
   --image RedHat:RHEL:9-lvm-gen2:latest \
   --admin-username azureuser \
   --admin-password $ps \
-  --location eastus \`
+  --location eastus \
   --size Standard_DS2_v5
   --assign-identity \
   --authentication-type password \
