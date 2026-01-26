@@ -12,7 +12,7 @@ az vm create \
   --admin-username azureuser \
   --admin-password $ps \
   --location eastus \
-  --size Standard_DS2_v5\
+  --size Standard_D2s_v5\
   --assign-identity \
   --authentication-type password \
   --public-ip-sku Standard

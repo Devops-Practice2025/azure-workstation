@@ -1,0 +1,11 @@
+
+git config --global user.email "karthikeyangopal16@gmail.com"
+git config --global user.username "karthikeyan-g16"
+git remote -v
+git remote add https://github.com/Devops-Practice2025/azure-workstation.git
+git remote remove https://github.com/Devops-Practice2025/azure-workstation.git
+git remote get-url --all
+
+
+git push
+git push -u origin main
