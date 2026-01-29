@@ -1,0 +1,7 @@
+az aks create \
+  --resource-group "$RESOURCEGROUP" \
+  --name "test-cluster" \
+  --node-count 3 \
+  --node-vm-size Standard_D2s_v5 \
+  --generate-ssh-keys \
+  --os-type Linux

@@ -1,6 +1,7 @@
 set -x
 
-sub_id=$(az account list -o table | grep C_029773-training-subscription | awk '{print $3}')
+#sub_id=$(az account list -o table | grep C_029773-training-subscription | awk '{print $3}')
+sub_id=$(az account list -o table | awk '{print $3}')
 rg=$(az group list -o table | grep nebula | awk '{print $1}')
 export sub_id
 export rg
@@ -28,10 +29,5 @@ az role assignment create \
   --assignee "$sys_id" \
   --role "Owner" \
   --scope "/subscriptions/$sub_id/resourceGroups/$rg"
-
-
-
-
-
 
 set +x
