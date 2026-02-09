@@ -73,7 +73,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        workingDirectory: 'terraform'
+        workingDirectory: 'aks'
         environmentServiceNameAzureRM: 'redhat-test'
         commandOptions: >
           -auto-approve
