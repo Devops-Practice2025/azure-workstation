@@ -40,7 +40,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
-        workingDirectory: 'terraform'
+        workingDirectory: 'aks'
         backendServiceArm: 'redhat-test'
         backendAzureRmResourceGroupName: '$(tfstate_resource_group)'
         backendAzureRmStorageAccountName: '$(tfstate_storage_account)'
@@ -53,7 +53,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        workingDirectory: 'terraform'
+        workingDirectory: 'aks'
         environmentServiceNameAzureRM: 'redhat-test'
         commandOptions: >
           -var="location=$(location)"
