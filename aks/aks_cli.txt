@@ -1,6 +1,12 @@
+az account clear
+cat /dev/null > ~/.kube/config
+
 az aks create \
   --resource-group "$RESOURCEGROUP" \
   --name "test-cluster" \
   --node-count 3 \
   --node-vm-size Standard_D2s_v5 \
   --generate-ssh-keys 
+
+
+az aks get-credentials   --resource-group $RESOURCEGROUP --name test-cluser
