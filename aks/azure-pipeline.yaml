@@ -8,15 +8,15 @@ pool:
 
 variables:
 - group: vault-secrets  # Name of your variable group
-steps:
-- script: echo "Varible group scret is $(client-id)"
-#   resource_group_name: 'openenv-rrv2r-1'
+#   steps:
+#   - script: echo "Varible group scret is $(client-id)"
+# #   resource_group_name: 'openenv-rrv2r-1'
 #   cluster_name: 'test-cluster'
 #   node_count: '3'
 #   node_vm_size: 'Standard_D2s_v5'
 
 stages:
-- stage: Terraform Installation
+- stage: Terraform_Installation
   displayName: 'Terraform Installation on the Agent Stage'
   jobs:
   - job: terraform_install
