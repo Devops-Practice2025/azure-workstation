@@ -7,7 +7,7 @@ variable "location" {
 variable "resource_group_name" {
   description = "Resource group for AKS"
   type        = string
-  default = ""
+  default = "openenv-rrv2r-1"
 }
 
 variable "cluster_name" {
@@ -26,6 +26,11 @@ variable "node_vm_size" {
   description = "VM size for default node pool"
   type        = string
   default     = "Standard_D2s_v5"
+}
+
+variable "tenant_id" {
+  default = "redhat0.microsoft.com"
+  
 }
 
 # Terraform state backend variables

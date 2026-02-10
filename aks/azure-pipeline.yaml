@@ -6,20 +6,20 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  # Adjust for your environment or set in DevOps Library
-  location: 'eastus'
-  resource_group_name: 'openenv-rrv2r-1'
-  cluster_name: 'test-cluster'
-  node_count: '3'
-  node_vm_size: 'Standard_D2s_v5'
+# variables:
+#   # Adjust for your environment or set in DevOps Library
+#   location: 'eastus'
+#   resource_group_name: 'openenv-rrv2r-1'
+#   cluster_name: 'test-cluster'
+#   node_count: '3'
+#   node_vm_size: 'Standard_D2s_v5'
 
 stages:
-- stage: Terraform
-  displayName: 'Terraform AKS'
+- stage: Terraform Installation
+  displayName: 'Terraform Installation on the Agent Stage'
   jobs:
-  - job: plan_apply
-    displayName: 'Plan & Apply'
+  - job: terraform_install
+    displayName: 'Terraform Installation Job'
     steps:
     - checkout: self
       persistCredentials: true
@@ -28,3 +28,12 @@ stages:
       displayName: 'Install Terraform'
       inputs:
         terraformVersion: '1.6.6'
+
+- stage: Terraform Infra deployment AKS
+  displayName: 'Terraform Infra deployment AKS Stage'
+  jobs:
+  - job: terrafom init 
+    displayName: 'Terrafom Init'
+    steps:
+    - task: shell
+      run: terraform init
