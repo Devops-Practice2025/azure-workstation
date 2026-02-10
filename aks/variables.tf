@@ -7,6 +7,7 @@ variable "location" {
 variable "resource_group_name" {
   description = "Resource group for AKS"
   type        = string
+  default = ""
 }
 
 variable "cluster_name" {
@@ -28,17 +29,3 @@ variable "node_vm_size" {
 }
 
 # Terraform state backend variables
-variable "tfstate_resource_group" {
-  type        = string
-  description = "Resource group hosting the tfstate storage account"
-}
-
-variable "tfstate_storage_account" {
-  type        = string
-  description = "Storage account for tfstate"
-}
-
-variable "tfstate_container" {
-  type        = string
-  description = "Blob container for tfstate"
-}
