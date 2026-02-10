@@ -1,6 +1,14 @@
+
+KeyVault :
+az role assignment create   --assignee $CLIENT_ID   --role Owner   --scope /subscriptions/$SUBSCRIPTION
+az keyvault create --name "test-kv-202602" --resource-group $RESOURCEGROUP --location eastus --enable-rbac-authorizat
+ion false
+az keyvault secret set --vault-name "test-kv-2026011" --name "client-secret" --value $PASSWORD
+
+az keyvault secret set --vault-name "test-kv-2026011" --name "client-id" --value $CLIENT_ID
+---------------------
 az account clear
 cat /dev/null > ~/.kube/config
-
 az aks create \
   --resource-group "$RESOURCEGROUP" \
   --name "test-cluster" \

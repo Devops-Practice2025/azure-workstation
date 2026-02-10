@@ -6,9 +6,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# variables:
-#   # Adjust for your environment or set in DevOps Library
-#   location: 'eastus'
+variables:
+- group: vault-secrets  # Name of your variable group
+steps:
+- script: echo "Varible group scret is $(client-id)"
 #   resource_group_name: 'openenv-rrv2r-1'
 #   cluster_name: 'test-cluster'
 #   node_count: '3'
@@ -21,6 +22,17 @@ stages:
   - job: terraform_install
     displayName: 'Terraform Installation Job'
     steps:
+    - task: AzureKeyVault@2
+      inputs:
+        azureSubscription: 'redhat-test' # Your service connection name
+        KeyVaultName: 'test-kv-2026011'
+        SecretsFilter: '*'          # Use '*' for all or 'secret1,secret2' for specific ones
+        RunAsPreJob: false          # Set to true to make secrets available to all jobs
+
+    - script: echo "The secret is from task  $(client-secret)"
+      displayName: 'Use Secret'
+    
+
     - checkout: self
       persistCredentials: true
 
@@ -28,12 +40,3 @@ stages:
       displayName: 'Install Terraform'
       inputs:
         terraformVersion: '1.6.6'
-
-- stage: Terraform Infra deployment AKS
-  displayName: 'Terraform Infra deployment AKS Stage'
-  jobs:
-  - job: terrafom init 
-    displayName: 'Terrafom Init'
-    steps:
-    - task: shell
-      run: terraform init

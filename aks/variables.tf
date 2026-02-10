@@ -1,13 +1,26 @@
 variable "location" {
   description = "Azure region for resources"
   type        = string
-  default     = "westeurope"
+  default     = "eastus"
 }
 
 variable "resource_group_name" {
   description = "Resource group for AKS"
   type        = string
   default = "openenv-rrv2r-1"
+}
+
+variable "client_id" {
+  
+}
+
+
+variable "client_secret" {
+  
+}
+
+variable "subscription_id" {
+  
 }
 
 variable "cluster_name" {
