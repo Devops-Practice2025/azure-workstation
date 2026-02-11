@@ -39,6 +39,7 @@ provider "azurerm" {
 provider "azurerm" {
    alias           = "main"
   features {}
+  subscription_id = var.subscription_id 
   client_id     = var.client_id
   client_secret = data.azurerm_key_vault_secret.sp_secret.value
   tenant_id     = var.tenant_id

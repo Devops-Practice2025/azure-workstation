@@ -16,10 +16,6 @@ variable "client_id" {
 }
 
 
-variable "client-secret" {
- 
-}
-
 variable "subscription_id" {
   default = "6944b66d-1ac0-445c-81c2-26aa49d120c3"
 }
