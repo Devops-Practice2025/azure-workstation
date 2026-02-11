@@ -9,19 +9,8 @@ variable "resource_group_name" {
   type        = string
   default = "openenv-rrv2r-1"
 }
-data "azurerm_key_vault" "vault" {
-  name                = "test-kv-2026011"
-  resource_group_name = "openenv-rrv2r-1"
-}
-
-# Fetch the secret
-data "azurerm_key_vault_secret" "sp_secret" {
-  name         = "client-password"
-  key_vault_id = data.azurerm_key_vault.vault.id
-}
-
 locals {
-  client_secret = data.azurerm_key_vault_secret.client_secret.value
+  client_secret = data.azurerm_key_vault_secret.sp_secret.client_secret.value
 }
 
 variable "client_id" {
@@ -30,7 +19,7 @@ variable "client_id" {
 
 
 variable "client_secret" {
-  default = locals.client_secret
+  
 }
 
 variable "subscription_id" {
