@@ -1,15 +1,3 @@
-variable "location" {
-  description = "Azure region for resources"
-  type        = string
-  default     = "eastus"
-}
-
-variable "resource_group_name" {
-  description = "Resource group for AKS"
-  type        = string
-  default = "openenv-rrv2r-1"
-}
-
 
 variable "client_id" {
   default = "0f8b470f-d23b-477a-a0ce-e7db6cf2d265"

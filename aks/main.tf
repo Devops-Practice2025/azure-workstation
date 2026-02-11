@@ -1,8 +1,4 @@
 # --- Resource Group (use existing or create) ---
-resource "azurerm_resource_group" "aks_rg" {
-  name     = var.resource_group_name
-  location = var.location
-}
 
 # --- SSH key pair (private key can be output-securely or written to a secure file in pipeline) ---
 resource "tls_private_key" "ssh" {
@@ -13,9 +9,9 @@ resource "tls_private_key" "ssh" {
 # --- AKS Cluster ---
 resource "azurerm_kubernetes_cluster" "aks" {
   provider = azurerm.main 
-  name                = var.cluster_name
-  location            = azurerm_resource_group.aks_rg.location
-  resource_group_name = azurerm_resource_group.aks_rg.name
+    name                = var.cluster_name
+  location            = data.azurerm_resource_group.aks_rg.location
+  resource_group_name = data.azurerm_resource_group.aks_rg.name
   dns_prefix          = "${var.cluster_name}-dns"
 
   kubernetes_version  = null # Optional: pin a version like "1.29.7"
