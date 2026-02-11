@@ -32,7 +32,9 @@ data "azurerm_key_vault_secret" "sp_secret" {
   name         = "client_secret"
   key_vault_id = data.azurerm_key_vault.vault.id
 }
-
+provider "azurerm" {
+  features {}
+}
 # Assign the secret to your provider
 provider "azurerm" {
   features {}

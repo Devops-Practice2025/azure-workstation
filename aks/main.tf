@@ -12,6 +12,7 @@ resource "tls_private_key" "ssh" {
 
 # --- AKS Cluster ---
 resource "azurerm_kubernetes_cluster" "aks" {
+  provider = azurerm.main 
   name                = var.cluster_name
   location            = azurerm_resource_group.aks_rg.location
   resource_group_name = azurerm_resource_group.aks_rg.name
