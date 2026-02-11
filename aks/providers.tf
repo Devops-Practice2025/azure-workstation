@@ -37,6 +37,7 @@ provider "azurerm" {
 }
 # Assign the secret to your provider
 provider "azurerm" {
+   alias           = "main"
   features {}
   client_id     = var.client_id
   client_secret = data.azurerm_key_vault_secret.sp_secret.value
