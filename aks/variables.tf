@@ -19,7 +19,7 @@ variable "client_id" {
 
 
 variable "client-secret" {
-  default = locals.client_secret
+ 
 }
 
 variable "subscription_id" {
