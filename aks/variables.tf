@@ -43,7 +43,7 @@ variable "node_vm_size" {
 }
 
 variable "tenant_id" {
-  default = "redhat0.microsoft.com"
+  default = "redhat0.onmicrosoft.com"
   
 }
 
