@@ -29,10 +29,6 @@ stages:
         SecretsFilter: '*'          # Use '*' for all or 'secret1,secret2' for specific ones
         RunAsPreJob: false          # Set to true to make secrets available to all jobs
 
-    - script: echo "The secret is from task  $(client-secret)"
-      displayName: 'Use Secret'
-    
-
     - checkout: self
       persistCredentials: true
 
@@ -40,3 +36,23 @@ stages:
       displayName: 'Install Terraform'
       inputs:
         terraformVersion: '1.6.6'
+
+- stage: Terraform_INIT
+  displayName: 'Terraform INIT'
+  jobs:
+  -  job:
+     steps:
+     - task: TerraformTaskV4@4
+       displayName: 'Terraform Init'
+       inputs:
+         provider: 'azurerm'
+         command: 'init'
+         # The path to where your .tf files are (e.g., $(System.DefaultWorkingDirectory)/aks)
+         workingDirectory: '$(System.DefaultWorkingDirectory)/aks' 
+        
+        # Backend Configuration
+         backendServiceArm: 'redhat-test' # Put your connection name here
+         backendAzureRmResourceGroupName: 'openenv-rrv2r-1'
+         backendAzureRmStorageAccountName: 'store202602'
+         backendAzureRmContainerName: 'tfstate'
+         backendAzureRmKey: 'dev.terraform.tfstate'
