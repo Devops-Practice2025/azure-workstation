@@ -1,0 +1,4 @@
+client_id       = "0f8b470f-d23b-477a-a0ce-e7db6cf2d265"
+client_secret   = "your-client-secret"
+tenant_id       = "your-tenant-id"
+subscription_id = "your-subscription-id"

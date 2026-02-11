@@ -9,3 +9,6 @@ git remote get-url --all
 
 git push
 git push -u origin main
+
+git clone git@ssh.dev.azure.com:v3/karthikeyangopal16/Test_project/azure-workstation.git
+# add the ssh public key to the azure devops
