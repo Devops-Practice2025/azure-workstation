@@ -60,7 +60,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/aks'
         environmentServiceNameAzureRM: 'redhat-test'
         # PASSING SECRETS: Map your KV secret names to Terraform variables here
-        commandOptions: '-var="client_secret=$(client-secret)" -var="client_id=$(client-id)" -var="tenant_id=$(tenant-id)" -var="subscription_id=$(subscription-id)"'
+        #commandOptions: '-var="client_secret=$(client-secret)" -var="client_id=$(client-id)" -var="tenant_id=$(tenant-id)" -var="subscription_id=$(subscription-id)"'
 
     # 5. Apply
     - task: TerraformTaskV4@4
@@ -71,4 +71,4 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/aks'
         environmentServiceNameAzureRM: 'redhat-test'
         # Ensure apply uses the same variables
-        commandOptions: '-auto-approve -var="client_secret=$(client-secret)" -var="client_id=$(client-id)" -var="tenant_id=$(tenant-id)" -var="subscription_id=$(subscription-id)"'
+        #commandOptions: '-auto-approve -var="client_secret=$(client-secret)" -var="client_id=$(client-id)" -var="tenant_id=$(tenant-id)" -var="subscription_id=$(subscription-id)"'
