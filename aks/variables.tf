@@ -9,9 +9,7 @@ variable "resource_group_name" {
   type        = string
   default = "openenv-rrv2r-1"
 }
-locals {
-  client-secret = data.azurerm_key_vault_secret.sp_secret.client_secret.value
-}
+
 
 variable "client_id" {
   default = "0f8b470f-d23b-477a-a0ce-e7db6cf2d265"
