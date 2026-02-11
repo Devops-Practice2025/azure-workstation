@@ -10,7 +10,7 @@ variable "resource_group_name" {
   default = "openenv-rrv2r-1"
 }
 locals {
-  client_secret = data.azurerm_key_vault_secret.sp_secret.client_secret.value
+  client-secret = data.azurerm_key_vault_secret.sp_secret.client_secret.value
 }
 
 variable "client_id" {
@@ -18,8 +18,8 @@ variable "client_id" {
 }
 
 
-variable "client_secret" {
-  
+variable "client-secret" {
+  default = locals.client_secret
 }
 
 variable "subscription_id" {

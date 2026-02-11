@@ -29,7 +29,7 @@ data "azurerm_key_vault" "vault" {
 
 # Fetch the secret
 data "azurerm_key_vault_secret" "sp_secret" {
-  name         = "client_secret"
+  name         = "client-secret"
   key_vault_id = data.azurerm_key_vault.vault.id
 }
 provider "azurerm" {
