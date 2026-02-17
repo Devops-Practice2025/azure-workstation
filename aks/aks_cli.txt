@@ -15,7 +15,7 @@ az storage account create --name store202602 --resource-group $RESOURCEGROUP --l
 az storage container create   --name tfstate   --account-name store202602   --auth-mode login
 ---------------------
 az account clear
-cat /dev/null > ~/.kube/config
+
 az aks create \
   --resource-group "$RESOURCEGROUP" \
   --name "test-cluster" \
@@ -23,5 +23,5 @@ az aks create \
   --node-vm-size Standard_D2s_v5 \
   --generate-ssh-keys 
 
-
-az aks get-credentials   --resource-group $RESOURCEGROUP --name test-cluser
+cat /dev/null > ~/.kube/config
+az aks get-credentials   --resource-group $RESOURCEGROUP --name test-cluster

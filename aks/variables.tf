@@ -1,11 +1,14 @@
 
 variable "client_id" {
-  default = "0f8b470f-d23b-477a-a0ce-e7db6cf2d265"
+ 
 }
 
+variable "client_password" {
+  
+}
 
 variable "subscription_id" {
-  default = "6944b66d-1ac0-445c-81c2-26aa49d120c3"
+  
 }
 
 variable "cluster_name" {

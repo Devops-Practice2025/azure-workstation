@@ -1,6 +1,6 @@
 data "azurerm_key_vault" "vault" {
   name                = "test-kv-2026011"
-  resource_group_name = "openenv-rrv2r-1"
+  resresource_group_name = "openenv-rrv2r-1"
 }
 
 # Fetch the secret

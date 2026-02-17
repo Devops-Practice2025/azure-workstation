@@ -1,5 +1,20 @@
 # --- Resource Group (use existing or create) ---
 
+resource "azurerm_key_vault" "vault" {
+  name                       = "test-kv-2026011"
+  location                   = data.resource_group_name.location
+  resource_group_name        = data.resource_group_name.name
+  tenant_id                  = data.azurerm_client_config.current.tenant_id
+  sku_name = "standard"
+}
+
+resource "azurerm_key_vault_secret" "client_password" {
+  name         = "client-password"
+  value        = var.client_password
+  key_vault_id = azurerm_key_vault.vault.id
+}
+
+
 # --- SSH key pair (private key can be output-securely or written to a secure file in pipeline) ---
 resource "tls_private_key" "ssh" {
   algorithm = "RSA"
