@@ -34,6 +34,18 @@ stages:
       displayName: 'Install Terraform'
       inputs:
         terraformVersion: '1.6.6'
+    - task: AzureCLI@2
+      displayName: 'Fetch Backend Details'
+      inputs:
+      azureSubscription: 'your-service-connection-name'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        # Find account starting with 'store'
+        RG_NAME=$(az group list --query "[?starts_with(name, 'nebula') || starts_with(name, 'openenv')].name | [0]" -o tsv)
+        STORAGE_ACC = $(az storage account list -g $(resourceGroupName) --query "[?starts_with(name, 'store')].name | [0]" -o tsv)    
+        CONTAINER=$(az storage container list --account-name $STORAGE_ACC --auth-mode login --query "[?name=='tfstate'].name | [0]" -o tsv)
+      
 
     - task: TerraformTaskV4@4
       displayName: 'Terraform Init'
@@ -44,10 +56,11 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/aks' 
       
       # Backend Configuration
-        backendServiceArm: 'azure-test' # Put your connection name here
-        # backendAzureRmStorageAccountName: 'store202602'
-        # backendAzureRmContainerName: 'tfstate'
-        # backendAzureRmKey: 'dev.terraform.tfstate'
+        backendServiceArm: 'azure-test' 
+        backendAzureRmResourceGroupName: '$(RG_NAME)' # Put your connection name here
+        backendAzureRmStorageAccountName: '$(STORAGE_ACC)'
+        backendAzureRmContainerName: '$(CONTAINER)' 
+        backendAzureRmKey: 'dev.terraform.tfstate'
        # 4. Plan
     - task: TerraformTaskV4@4
       displayName: 'Terraform Plan'
