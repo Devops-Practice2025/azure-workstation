@@ -1,15 +1,15 @@
-data "azurerm_key_vault" "vault" {
-  name                = "test-kv-2026011"
-  resresource_group_name = "openenv-rrv2r-1"
+data "azurerm_resource_groups" "aks-rg" {}
+
+locals {
+  # 2. Filter the list using a for loop and regex
+  # This matches names starting with 'openenv' OR 'nebula'
+  filtered_groups = [
+    for rg in data.azurerm_resource_groups.all.resource_groups : rg.name 
+    if can(regex("^(openenv|nebula)", rg.name))
+  ]
 }
 
-# Fetch the secret
-data "azurerm_key_vault_secret" "sp_secret" {
-  name         = "client-secret"
-  key_vault_id = data.azurerm_key_vault.vault.id
+# Output the results
+output "target_resource_groups" {
+  value = local.filtered_groups
 }
-
-data "azurerm_resource_group" "aks_rg" {
-  name = "openenv-rrv2r-1"
-}
-

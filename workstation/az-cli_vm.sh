@@ -1,3 +1,7 @@
+#To be run inside a vm in azure machine
+#Run below in az cli and then create a test.sh file for this
+#az account set --subscription "<sub_id>"
+
 set -x
 
 sub_id=$(az account list -o table | grep C_029773-training-subscription | awk '{print $3}')

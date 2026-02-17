@@ -2,9 +2,6 @@
 # azure-workstation
 # 1. workstation creation
 ````
-export rg=nebula-sandbox-karthikeyangopal-629394fa
-export ps=
-````
 ### check vm status
 ````
  az vm show -g $rg -n workstation -d --query "{name:name,public_Ip:publicIps,state:powerState,private_Ip:privateIps,size:vmSize}" -o table 
@@ -12,7 +9,7 @@ export ps=
 ### VM
 ````
  az account set --subscription "<sub_id>"
- 
+
 az vm create \
   --resource-group $rg \
   --name workstation \

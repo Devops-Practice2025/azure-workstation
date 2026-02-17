@@ -6,8 +6,8 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-- group: vault-secrets  # Name of your variable group
+# variables:
+# - group: vault-secrets  # Name of your variable group
 #   steps:
 #   - script: echo "Varible group scret is $(client-id)"
 # #   resource_group_name: 'openenv-rrv2r-1'
@@ -24,8 +24,8 @@ stages:
     steps:
     - task: AzureKeyVault@2
       inputs:
-        azureSubscription: 'redhat-test' # Your service connection name
-        KeyVaultName: 'test-kv-2026011'
+        azureSubscription: 'azure-test' # Your service connection name
+        KeyVaultName: 'test-kv'
         SecretsFilter: '*'          # Use '*' for all or 'secret1,secret2' for specific ones
         RunAsPreJob: false          # Set to true to make secrets available to all jobs
 

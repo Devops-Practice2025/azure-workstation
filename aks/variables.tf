@@ -1,15 +1,15 @@
 
-variable "client_id" {
+# variable "client_id" {
  
-}
+# }
 
-variable "client_password" {
+# variable "client_password" {
   
-}
+# }
 
-variable "subscription_id" {
+# variable "subscription_id" {
   
-}
+# }
 
 variable "cluster_name" {
   description = "AKS cluster name"
@@ -29,9 +29,9 @@ variable "node_vm_size" {
   default     = "Standard_D2s_v5"
 }
 
-variable "tenant_id" {
-  default = "redhat0.onmicrosoft.com"
+# variable "tenant_id" {
+#   default = "redhat0.onmicrosoft.com"
   
-}
+# }
 
 # Terraform state backend variables
