@@ -44,11 +44,10 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/aks' 
       
       # Backend Configuration
-        backendServiceArm: 'redhat-test' # Put your connection name here
-        backendAzureRmResourceGroupName: 'openenv-rrv2r-1'
-        backendAzureRmStorageAccountName: 'store202602'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'dev.terraform.tfstate'
+        # backendServiceArm: 'azure-test' # Put your connection name here
+        # backendAzureRmStorageAccountName: 'store202602'
+        # backendAzureRmContainerName: 'tfstate'
+        # backendAzureRmKey: 'dev.terraform.tfstate'
        # 4. Plan
     - task: TerraformTaskV4@4
       displayName: 'Terraform Plan'
@@ -56,7 +55,7 @@ stages:
         provider: 'azurerm'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/aks'
-        environmentServiceNameAzureRM: 'redhat-test'
+        environmentServiceNameAzureRM: 'azure-test'
         # PASSING SECRETS: Map your KV secret names to Terraform variables here
         #commandOptions: '-var="client_secret=$(client-secret)" -var="client_id=$(client-id)" -var="tenant_id=$(tenant-id)" -var="subscription_id=$(subscription-id)"'
 
@@ -67,6 +66,6 @@ stages:
         provider: 'azurerm'
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/aks'
-        environmentServiceNameAzureRM: 'redhat-test'
+        environmentServiceNameAzureRM: 'azure-test'
         # Ensure apply uses the same variables
         #commandOptions: '-auto-approve -var="client_secret=$(client-secret)" -var="client_id=$(client-id)" -var="tenant_id=$(tenant-id)" -var="subscription_id=$(subscription-id)"'
