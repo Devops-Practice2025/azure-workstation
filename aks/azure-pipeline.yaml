@@ -44,7 +44,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/aks' 
       
       # Backend Configuration
-        # backendServiceArm: 'azure-test' # Put your connection name here
+        backendServiceArm: 'azure-test' # Put your connection name here
         # backendAzureRmStorageAccountName: 'store202602'
         # backendAzureRmContainerName: 'tfstate'
         # backendAzureRmKey: 'dev.terraform.tfstate'
