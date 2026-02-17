@@ -20,12 +20,12 @@ stages:
   - job: terraform_install
     displayName: 'Terraform Installation Job'
     steps:
-    - task: AzureKeyVault@2
-      inputs:
-        azureSubscription: 'azure-test' # Your service connection name
-        KeyVaultName: 'test-kv'
-        SecretsFilter: '*'          # Use '*' for all or 'secret1,secret2' for specific ones
-        RunAsPreJob: false          # Set to true to make secrets available to all jobs
+    # - task: AzureKeyVault@2
+    #   inputs:
+    #     azureSubscription: 'azure-test' # Your service connection name
+    #     KeyVaultName: 'test-kv'
+    #     SecretsFilter: '*'          # Use '*' for all or 'secret1,secret2' for specific ones
+    #     RunAsPreJob: false          # Set to true to make secrets available to all jobs
 
     - checkout: self
       persistCredentials: true
