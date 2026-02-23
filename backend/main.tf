@@ -9,7 +9,7 @@ resource "random_string" "suffix" {
 resource "azurerm_storage_account" "tfstate" {
   name                     = "tf${random_string.suffix.result}state"
   resource_group_name      = data.azurerm_resource_group.rg.name
-  location                 = "westeurope"
+  location                 = "eastus"
   account_tier             = "Standard"
   account_replication_type = "LRS"
   min_tls_version          = "TLS1_2"
