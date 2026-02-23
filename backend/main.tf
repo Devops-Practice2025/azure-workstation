@@ -1,13 +1,3 @@
-resource "azurerm_container_registry" "acr" {
-  name                = "testaksregistry1234"
-  resource_group_name = local.nebula_rg
-  location            = local.nebula_location
-
-  sku                 = "Standard"
-  admin_enabled       = false
-}
-
-
 resource "random_string" "suffix" {
   length  = 6
   lower   = true
@@ -18,8 +8,8 @@ resource "random_string" "suffix" {
 
 resource "azurerm_storage_account" "tfstate" {
   name                     = "tf${random_string.suffix.result}state"
-  resource_group_name      = local.nebula_rg
-  location                 = local.nebula_location
+  resource_group_name      = data.azurerm_resource_group.rg
+  location                 = data.azurerm_resource_group.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
   min_tls_version          = "TLS1_2"

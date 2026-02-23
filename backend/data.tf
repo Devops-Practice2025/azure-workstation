@@ -1,17 +1,13 @@
 # Data block to read an existing resource group
-data "azurerm_resource_group" "nebula" {
-     name = "nebula-sandbox-karthikeyangopal-6bc4873c"
-}
-locals {
-  nebula_rg = data.azurerm_resource_group.nebula.name
- nebula_location = data.azurerm_resource_group.nebula.location
-}
+data "azurerm_resource_group" "rg" {
+  name = "openenv-gk8zk-1"
+     }
 
 output "rg" {
-  value = local.nebula_rg
+  value = data.azurerm_resource_group.rg
   
 }
 output "location" {
-    value = local.nebula_location
+    value = data.azurerm_resource_group.location
   
 }

@@ -14,6 +14,14 @@
 #   key_vault_id = azurerm_key_vault.vault.id
 # }
 
+resource "azurerm_container_registry" "acr" {
+  name                = "testaksregistry1234"
+  resource_group_name = local.nebula_rg
+  location            = local.nebula_location
+
+  sku                 = "Standard"
+  admin_enabled       = false
+}
 
 # --- SSH key pair (private key can be output-securely or written to a secure file in pipeline) ---
 resource "tls_private_key" "ssh" {
