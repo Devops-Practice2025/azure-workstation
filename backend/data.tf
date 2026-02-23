@@ -4,7 +4,6 @@ data "azurerm_resource_group" "rg" {
      }
 
 
-
 output "rg" {
   value = data.azurerm_resource_group.rg
   
