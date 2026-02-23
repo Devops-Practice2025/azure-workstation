@@ -25,4 +25,7 @@ az aks create \
   --generate-ssh-keys 
 
 cat /dev/null > ~/.kube/config
+
+
+## get kube ctl
 az aks get-credentials   --resource-group $RESOURCEGROUP --name test-cluster
