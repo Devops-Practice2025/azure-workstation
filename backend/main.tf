@@ -13,6 +13,7 @@ resource "azurerm_storage_account" "tfstate" {
   account_tier             = "Standard"
   account_replication_type = "ZRS"
   min_tls_version          = "TLS1_2"
+  access_tier = "Cool"
 
   lifecycle { 
     prevent_destroy = true
