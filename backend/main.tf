@@ -11,9 +11,14 @@ resource "azurerm_storage_account" "tfstate" {
   resource_group_name      = data.azurerm_resource_group.rg.name
   location                 = "eastus"
   account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_replication_type = "ZRS"
   min_tls_version          = "TLS1_2"
-  lifecycle { prevent_destroy = true }
+
+  lifecycle { 
+    prevent_destroy = true
+    ignore_changes = [tags]
+  
+  }
 }
 
 resource "azurerm_storage_container" "tfstate" {
@@ -23,14 +28,7 @@ resource "azurerm_storage_container" "tfstate" {
   lifecycle { prevent_destroy = true }
 }
 
-resource "azurerm_storage_account" "tfstate1" {
-  # (resource arguments)  
-  name                     = "tfh03wy9state"
-  resource_group_name      = "openenv-gk8zk-1"
-  location                 = "eastus"
-  account_tier             = "Standard"
-  account_replication_type = "ZRS" 
-}
+
 
 output "backend_storage_account" {
   value = azurerm_storage_account.tfstate.name
