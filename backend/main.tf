@@ -24,7 +24,12 @@ resource "azurerm_storage_container" "tfstate" {
 }
 
 resource "azurerm_storage_account" "tfstate1" {
-  # (resource arguments)
+  # (resource arguments)  
+  name                     = "tfh03wy9state"
+  resource_group_name      = "openenv-gk8zk-1"
+  location                 = "eastus"
+  account_tier             = "Standard"
+  account_replication_type = "ZRS" 
 }
 
 output "backend_storage_account" {
