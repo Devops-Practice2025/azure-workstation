@@ -23,6 +23,10 @@ resource "azurerm_storage_container" "tfstate" {
   lifecycle { prevent_destroy = true }
 }
 
+resource "azurerm_storage_account" "tfstate1" {
+  # (resource arguments)
+}
+
 output "backend_storage_account" {
   value = azurerm_storage_account.tfstate.name
 }
