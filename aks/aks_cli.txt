@@ -7,6 +7,24 @@ az keyvault secret set --vault-name "test-kv" --name "client-secret" --value $PA
 
 az keyvault secret set --vault-name "test-kv" --name "client-id" --value $CLIENT_ID
 
+acr:
+
+az acr create \
+  --name testacr090426 \
+  --resource-group $RESOURCEGROUP \
+  --location westus \
+  --sku Standard
+  --admin-enabled true
+
+az acr login --name testacr090426
+az acr credential show --name testacr090426
+
+az acr repository list \
+  --name testacr090426 \
+  --output table
+
+az aks update -g $RESOURCEGROUP -n test-cluster --attach-acr testacr090426
+
 storage account:
 
 #az role assignment create     --role "Storage Blob Data Contributor"     --assignee $CLIENT_ID   --scope "/subscriptions/$SUBSCRIPTION/resourceGroups/$RESOURCEGROUP/providers/Microsoft.Storage/storageAccounts/store202602"
