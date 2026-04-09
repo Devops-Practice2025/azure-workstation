@@ -1,5 +1,5 @@
 variable "location" {
-  default = "westus"
+  default = "southindia"
 }
 
 variable "vm_admin_username" {
