@@ -35,3 +35,29 @@ resource "azurerm_virtual_machine_extension" "chrome" {
 }
 SETTINGS
 }
+
+
+resource "azurerm_virtual_machine_extension" "install_sshd" {
+  name                 = "install-openssh"
+  virtual_machine_id   = azurerm_windows_virtual_machine.vm.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.10"
+
+  settings = <<SETTINGS
+{
+  "commandToExecute": "powershell -ExecutionPolicy Unrestricted -Command \" \
+    Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0; \
+    Start-Service sshd; \
+    Set-Service -Name sshd -StartupType Automatic; \
+    New-NetFirewallRule -Name ssh443 -DisplayName 'OpenSSH 443' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 443; \
+    \$configPath = 'C:\\ProgramData\\ssh\\sshd_config'; \
+    (Get-Content \$configPath) -replace '#Port 22','Port 443' | Set-Content \$configPath; \
+    Add-Content \$configPath 'AllowTcpForwarding yes'; \
+    Add-Content \$configPath 'GatewayPorts no'; \
+    Restart-Service sshd \
+  \""
+}
+SETTINGS
+}
+
