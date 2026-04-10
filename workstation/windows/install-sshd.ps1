@@ -1,7 +1,29 @@
+#############################################
+# INSTALL GOOGLE CHROME
+#############################################
+
+$chromeInstaller = "$env:TEMP\chrome.msi"
+
+Invoke-WebRequest `
+"https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B00000000-0000-0000-0000-000000000000%7D/dl/chrome/install/googlechromestandaloneenterprise64.msi" `
+-OutFile $chromeInstaller
+
+Start-Process msiexec.exe `
+-ArgumentList "/i $chromeInstaller /qn" `
+-Wait
+
+#############################################
+# INSTALL OPENSSH SERVER
+#############################################
+
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
 Start-Service sshd
 Set-Service -Name sshd -StartupType Automatic
+
+#############################################
+# MOVE SSH TO 443
+#############################################
 
 New-NetFirewallRule `
 -Name ssh443 `
@@ -22,3 +44,4 @@ Add-Content $configPath "AllowTcpForwarding yes"
 Add-Content $configPath "GatewayPorts no"
 
 Restart-Service sshd
+``

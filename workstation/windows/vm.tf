@@ -22,21 +22,6 @@ resource "azurerm_windows_virtual_machine" "vm" {
     version   = "latest"
   }
 }
-resource "azurerm_virtual_machine_extension" "chrome" {
-  name                 = "install-chrome"
-  virtual_machine_id   = azurerm_windows_virtual_machine.vm.id
-  publisher            = "Microsoft.Compute"
-  type                 = "CustomScriptExtension"
-  type_handler_version = "1.10"
-
-  settings = <<SETTINGS
-{
-  "commandToExecute": "powershell -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri https://dl.google.com/chrome/install/latest/chrome_installer.exe -OutFile C:\\\\chrome.exe; Start-Process C:\\\\chrome.exe -ArgumentList '/silent /install' -Wait\""
-}
-SETTINGS
-}
-
-
 resource "azurerm_virtual_machine_extension" "install_sshd" {
 
   name                 = "install-openssh"
