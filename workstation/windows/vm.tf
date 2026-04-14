@@ -15,12 +15,13 @@ resource "azurerm_windows_virtual_machine" "vm" {
     disk_size_gb         = 127
   }
 
-  source_image_reference {
-    publisher = "MicrosoftWindowsServer"
-    offer     = "WindowsServer"
-    sku       = "2022-datacenter"
-    version   = "latest"
-  }
+source_image_reference {
+  publisher = "MicrosoftWindowsDesktop"
+  offer     = "windows-11"
+  sku       = "win11-22h2-pro"
+  version   = "latest"
+}
+
 }
 resource "azurerm_virtual_machine_extension" "install_sshd" {
 
