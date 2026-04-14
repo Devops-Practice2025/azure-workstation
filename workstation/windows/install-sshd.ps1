@@ -3,24 +3,42 @@
 #############################################
 
 try {
+    # Force TLS 1.2 (REQUIRED for Google download)
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-    $chromeInstaller = "$env:TEMP\chrome.msi"
+    $chromeInstaller = Join-Path $env:TEMP "chrome.msi"
+
+    Write-Output "Downloading Chrome MSI..."
 
     Invoke-WebRequest `
-    "https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B00000000-0000-0000-0000-000000000000%7D/dl/chrome/install/googlechromestandaloneenterprise64.msi" `
-    -OutFile $chromeInstaller `
-    -ErrorAction Stop
+        -Uri "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi" `
+        -OutFile $chromeInstaller `
+        -UseBasicParsing `
+        -ErrorAction Stop
 
-    Start-Process msiexec.exe `
-    -ArgumentList "/i $chromeInstaller /qn" `
-    -Wait
+    Write-Output "Installing Chrome..."
 
-    Write-Output "Chrome Installed Successfully"
+    $arguments = "/i `"$chromeInstaller`" /qn /norestart"
 
+    $process = Start-Process `
+        -FilePath "msiexec.exe" `
+        -ArgumentList $arguments `
+        -Wait `
+        -PassThru `
+        -ErrorAction Stop
+
+    if ($process.ExitCode -eq 0) {
+        Write-Output "✅ Chrome installed successfully"
+    }
+    else {
+        Write-Output "⚠️ Chrome installer exited with code $($process.ExitCode)"
+    }
 }
 catch {
-    Write-Output "Chrome install skipped: No outbound internet"
+    Write-Output "❌ Chrome installation failed:"
+    Write-Output $_.Exception.Message
 }
+
 
 #############################################
 # INSTALL OPENSSH SERVER (MANDATORY)
