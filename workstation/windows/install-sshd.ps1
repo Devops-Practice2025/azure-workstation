@@ -1,43 +1,43 @@
-#############################################
-# TRY INSTALL GOOGLE CHROME (NON-BLOCKING)
-#############################################
+# #############################################
+# # TRY INSTALL GOOGLE CHROME (NON-BLOCKING)
+# #############################################
 
-try {
-    # Force TLS 1.2 (REQUIRED for Google download)
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# try {
+#     # Force TLS 1.2 (REQUIRED for Google download)
+#     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-    $chromeInstaller = Join-Path $env:TEMP "chrome.msi"
+#     $chromeInstaller = Join-Path $env:TEMP "chrome.msi"
 
-    Write-Output "Downloading Chrome MSI..."
+#     Write-Output "Downloading Chrome MSI..."
 
-    Invoke-WebRequest `
-        -Uri "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi" `
-        -OutFile $chromeInstaller `
-        -UseBasicParsing `
-        -ErrorAction Stop
+#     Invoke-WebRequest `
+#         -Uri "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi" `
+#         -OutFile $chromeInstaller `
+#         -UseBasicParsing `
+#         -ErrorAction Stop
 
-    Write-Output "Installing Chrome..."
+#     Write-Output "Installing Chrome..."
 
-    $arguments = "/i `"$chromeInstaller`" /qn /norestart"
+#     $arguments = "/i `"$chromeInstaller`" /qn /norestart"
 
-    $process = Start-Process `
-        -FilePath "msiexec.exe" `
-        -ArgumentList $arguments `
-        -Wait `
-        -PassThru `
-        -ErrorAction Stop
+#     $process = Start-Process `
+#         -FilePath "msiexec.exe" `
+#         -ArgumentList $arguments `
+#         -Wait `
+#         -PassThru `
+#         -ErrorAction Stop
 
-    if ($process.ExitCode -eq 0) {
-        Write-Output "✅ Chrome installed successfully"
-    }
-    else {
-        Write-Output "⚠️ Chrome installer exited with code $($process.ExitCode)"
-    }
-}
-catch {
-    Write-Output "❌ Chrome installation failed:"
-    Write-Output $_.Exception.Message
-}
+#     if ($process.ExitCode -eq 0) {
+#         Write-Output "✅ Chrome installed successfully"
+#     }
+#     else {
+#         Write-Output "⚠️ Chrome installer exited with code $($process.ExitCode)"
+#     }
+# }
+# catch {
+#     Write-Output "❌ Chrome installation failed:"
+#     Write-Output $_.Exception.Message
+# }
 
 
 #############################################
