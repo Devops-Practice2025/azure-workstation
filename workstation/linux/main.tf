@@ -110,7 +110,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                = "ubuntu-gui-vm"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
-  size                = "Standard_B2s"
+  size                = "Standard_D2s_v5"
 
   network_interface_ids = [
     azurerm_network_interface.nic.id
