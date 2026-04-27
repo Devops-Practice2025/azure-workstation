@@ -48,21 +48,21 @@ data "azurerm_resource_group" "rg" {
 resource "azurerm_virtual_network" "vnet" {
   name                = "ubuntu-gui-vnet"
   address_space       = ["10.0.0.0/16"]
-  location            = data.data.azurerm_resource_group.rg.location
-  resource_group_name = data.data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
 }
 
 resource "azurerm_subnet" "subnet" {
   name                 = "subnet1"
-  resource_group_name  = data.data.azurerm_resource_group.rg.name
-  virtual_network_name = data.azurerm_virtual_network.vnet.name
+  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "nsg" {
   name                = "ubuntu-gui-nsg"
-  location            = data.data.azurerm_resource_group.rg.location
-  resource_group_name = data.data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
 
   security_rule {
     name                       = "Allow-RDP"
