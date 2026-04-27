@@ -16,7 +16,7 @@ provider "azurerm" {
 ############################
 
 variable "location" {
-  default = "westeurope"
+  default = "southindia"
 }
 
 variable "resource_group_name" {
@@ -46,14 +46,14 @@ data "azurerm_resource_group" "rg" {
 ############################
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "ubuntu-gui-vnet"
+  name                = "ubuntu-gui-vnet1"
   address_space       = ["10.0.0.0/16"]
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
 resource "azurerm_subnet" "subnet" {
-  name                 = "subnet1"
+  name                 = "subnet2"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]
@@ -134,21 +134,22 @@ resource "azurerm_linux_virtual_machine" "vm" {
   disable_password_authentication = false
 
   custom_data = base64encode(<<EOF
-#cloud-config
+#
+cloud-config
 package_update: true
-package_upgrade: true
 
 packages:
-  - ubuntu-desktop-minimal
+  - xfce4
+  - xfce4-goodies
   - xrdp
 
 runcmd:
   - systemctl enable xrdp
-  - systemctl restart xrdp
-  - adduser xrdp ssl-cert
-  - echo "exec gnome-session" > /home/${var.admin_username}/.xsession
+  - echo xfce4-session > /home/${var.admin_username}/.xsession
   - chown ${var.admin_username}:${var.admin_username} /home/${var.admin_username}/.xsession
+  - chmod 644 /home/${var.admin_username}/.xsession
 EOF
+
   )
 
   os_disk {
