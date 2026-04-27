@@ -151,4 +151,3 @@ EOF
     version   = "latest"
   }
 }
-``
