@@ -150,6 +150,23 @@ runcmd:
   - chmod 644 /home/${var.admin_username}/.xsession
   - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   - sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
+  - echo 'Updating system'
+  - apt update
+
+  - echo 'Installing XFCE + XRDP'
+  - apt install -y xfce4 xfce4-goodies xrdp
+
+  - echo 'Configuring XFCE session'
+  - echo xfce4-session > /home/azureuser/.xsession
+  - chown azureuser:azureuser /home/azureuser/.xsession
+  - chmod 644 /home/azureuser/.xsession
+
+  - echo 'Enabling XRDP'
+  - systemctl enable xrdp
+  - systemctl restart xrdp
+
+   - echo 'Done. Rebooting…'
+   - reboot
     
 EOF
 
