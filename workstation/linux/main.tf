@@ -145,43 +145,32 @@ resource "azurerm_linux_virtual_machine" "vm" {
   disable_password_authentication = false
 
   custom_data = base64encode(<<EOF
-#
-cloud-config
+#cloud-config
 package_update: true
+package_upgrade: true
 
+# Install GUI components through the native module first
 packages:
   - xfce4
   - xfce4-goodies
   - xrdp
+  - wget
 
 runcmd:
-  - systemctl enable xrdp
-  - echo xfce4-session > /home/${var.admin_username}/.xsession
-  - chown ${var.admin_username}:${var.admin_username} /home/${var.admin_username}/.xsession
-  - chmod 644 /home/${var.admin_username}/.xsession
+  # 1. Download and Install Google Chrome
   - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  - sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
-  - echo 'Updating system'
-  - apt update
-
-  - echo 'Installing XFCE + XRDP'
-  - apt install -y xfce4 xfce4-goodies xrdp
-
-  - echo 'Configuring XFCE session'
-  - echo xfce4-session > /home/azureuser/.xsession
-  - chown azureuser:azureuser /home/azureuser/.xsession
-  - chmod 644 /home/azureuser/.xsession
-
-  - echo 'Enabling XRDP'
+  - apt-get install -y ./google-chrome-stable_current_amd64.deb
+  
+  # 2. Configure XRDP for XFCE (Using the correct variable for the user)
+  - echo "xfce4-session" > /home/${var.admin_username}/.xsession
+  - chown ${var.admin_username}:${var.admin_username} /home/${var.admin_username}/.xsession
+  
+  # 3. Finalize and Restart Services
   - systemctl enable xrdp
   - systemctl restart xrdp
-
-   - echo 'Done. Rebooting…'
-   - reboot
-    
 EOF
+)
 
-  )
 
   os_disk {
     caching              = "ReadWrite"
