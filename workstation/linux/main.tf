@@ -48,7 +48,7 @@ data "azurerm_resource_group" "rg" {
 resource "azurerm_virtual_network" "vnet" {
   name                = "ubuntu-gui-vnet1"
   address_space       = ["10.0.0.0/16"]
-  location            = data.azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
@@ -61,7 +61,7 @@ resource "azurerm_subnet" "subnet" {
 
 resource "azurerm_network_security_group" "nsg" {
   name                = "ubuntu-gui-nsg"
-  location            = data.azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
   security_rule {
@@ -96,14 +96,14 @@ resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
 
 resource "azurerm_public_ip" "pip" {
   name                = "ubuntu-gui-pip"
-  location            = data.azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = data.azurerm_resource_group.rg.name
   allocation_method   = "Static"
 }
 
 resource "azurerm_network_interface" "nic" {
   name                = "ubuntu-gui-nic"
-  location            = data.azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
   ip_configuration {
@@ -120,7 +120,7 @@ resource "azurerm_network_interface" "nic" {
 
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = "ubuntu-gui-vm"
-  location            = data.azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = data.azurerm_resource_group.rg.name
   size                = "Standard_D2s_v5"
 
@@ -148,6 +148,9 @@ runcmd:
   - echo xfce4-session > /home/${var.admin_username}/.xsession
   - chown ${var.admin_username}:${var.admin_username} /home/${var.admin_username}/.xsession
   - chmod 644 /home/${var.admin_username}/.xsession
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
+    
 EOF
 
   )
