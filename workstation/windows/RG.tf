@@ -1,12 +1,12 @@
-resource "azurerm_resource_group" "rg" {
-  name     = "test-rg1"
-  location = var.location
+data "azurerm_resource_group" "rg" {
+  name     = "testrg1"
+  
 }
 
 resource "azurerm_virtual_network" "vnet" {
   name                = "vm-vnet"
   address_space       = ["10.50.0.0/16"]
-  location            = azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 }
 
@@ -35,7 +35,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 resource "azurerm_public_ip" "pip" {
   name                = "vm-pip"
-  location            = azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
   sku                 = "Standard"
@@ -43,7 +43,7 @@ resource "azurerm_public_ip" "pip" {
 
 resource "azurerm_network_interface" "nic" {
   name                = "vm-nic"
-  location            = azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 
   ip_configuration {
