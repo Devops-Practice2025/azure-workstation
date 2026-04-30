@@ -25,13 +25,7 @@ source_image_reference {
 
 }
 
-resource "azurerm_virtual_machine" "rhel_vm" {
-name = "rhel-vm"
-resource_group_name = azurerm_resource_group.rg
-location = azurerm_resource_group.location
- 
 
-}
 resource "azurerm_virtual_machine_extension" "install_sshd" {
 
   name                 = "install-openssh"

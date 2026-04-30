@@ -147,27 +147,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
   custom_data = base64encode(<<EOF
 #cloud-config
 package_update: true
-package_upgrade: true
-
-# Install GUI components through the native module first
-packages:
-  - xfce4
-  - xfce4-goodies
-  - xrdp
-  - wget
-
-runcmd:
-  # 1. Download and Install Google Chrome
-  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  - apt-get install -y ./google-chrome-stable_current_amd64.deb
-  
-  # 2. Configure XRDP for XFCE (Using the correct variable for the user)
-  - echo "xfce4-session" > /home/${var.admin_username}/.xsession
-  - chown ${var.admin_username}:${var.admin_username} /home/${var.admin_username}/.xsession
-  
-  # 3. Finalize and Restart Services
-  - systemctl enable xrdp
-  - systemctl restart xrdp
 EOF
 )
 
